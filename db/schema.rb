@@ -10,9 +10,72 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2018_09_01_223707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "days", force: :cascade do |t|
+    t.date "date"
+    t.float "value"
+    t.bigint "goals_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["goals_id"], name: "index_days_on_goals_id"
+  end
+
+  create_table "days_salesmen", id: false, force: :cascade do |t|
+    t.bigint "day_id", null: false
+    t.bigint "salesman_id", null: false
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.date "month_reference"
+    t.float "value"
+    t.bigint "store_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_goals_on_store_id"
+  end
+
+  create_table "owners", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "periods", force: :cascade do |t|
+    t.bigint "salesman_id"
+    t.bigint "goals_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["goals_id"], name: "index_periods_on_goals_id"
+    t.index ["salesman_id"], name: "index_periods_on_salesman_id"
+  end
+
+  create_table "salesmen", force: :cascade do |t|
+    t.string "name"
+    t.bigint "store_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_salesmen_on_store_id"
+  end
+
+  create_table "stores", force: :cascade do |t|
+    t.string "name"
+    t.bigint "owners_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owners_id"], name: "index_stores_on_owners_id"
+  end
+
+  add_foreign_key "days", "goals", column: "goals_id"
+  add_foreign_key "goals", "stores"
+  add_foreign_key "periods", "goals", column: "goals_id"
+  add_foreign_key "periods", "salesmen"
+  add_foreign_key "salesmen", "stores"
+  add_foreign_key "stores", "owners", column: "owners_id"
 end
