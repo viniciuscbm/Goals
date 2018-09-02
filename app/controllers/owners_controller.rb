@@ -24,7 +24,7 @@ class OwnersController < ApplicationController
   # POST /owners
   # POST /owners.json
   def create
-    @owner = Owner.new(owner_params)
+    @owner = Owner.new(owner_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @owner.save

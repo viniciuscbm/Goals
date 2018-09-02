@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  #== VALIDATIONS ========================================
   has_one :owner, dependent: :destroy
+
+  #== ENUMS ========================================
+  enum role:  %i[admin owner]
 end
 
