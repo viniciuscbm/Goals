@@ -8,6 +8,7 @@ RSpec.describe Owner, type: :model do
   end
 
   context "Associations" do
+    it { should belong_to(:user) }
     it { should have_many(:stores).dependent(:destroy) }
   end
 
