@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :store do
     name { Faker::Name.name }
-    association :onwer
+    association :owner
   end
 end

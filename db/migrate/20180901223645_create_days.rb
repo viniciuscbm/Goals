@@ -1,9 +1,9 @@
 class CreateDays < ActiveRecord::Migration[5.2]
   def change
     create_table :days do |t|
-      t.string :date, unique: true
+      t.date :date, unique: true, null: false
       t.float :value
-      t.references :goal, foreign_key: true, index: true
+      t.references :goal, foreign_key: true, index: true, null: false
 
       t.timestamps
     end

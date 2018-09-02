@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   enable_extension "plpgsql"
 
   create_table "days", force: :cascade do |t|
-    t.string "date"
+    t.date "date", null: false
     t.float "value"
-    t.bigint "goal_id"
+    t.bigint "goal_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["goal_id"], name: "index_days_on_goal_id"
