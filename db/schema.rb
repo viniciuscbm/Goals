@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   enable_extension "plpgsql"
 
   create_table "days", force: :cascade do |t|
-    t.date "date"
+    t.string "date"
     t.float "value"
     t.bigint "goals_id"
     t.datetime "created_at", null: false
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   create_table "days_salesmen", id: false, force: :cascade do |t|
     t.bigint "day_id", null: false
     t.bigint "salesman_id", null: false
+    t.index ["day_id", "salesman_id"], name: "index_days_salesmen_on_day_id_and_salesman_id"
+    t.index ["salesman_id", "day_id"], name: "index_days_salesmen_on_salesman_id_and_day_id"
   end
 
   create_table "goals", force: :cascade do |t|

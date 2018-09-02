@@ -6,7 +6,7 @@ class CreateGoals < ActiveRecord::Migration[5.2]
       t.date :end_date
       t.date :month_reference
       t.float :value
-      t.references :store, foreign_key: true
+      t.references :store, foreign_key: true, index: true
 
       t.timestamps
     end
