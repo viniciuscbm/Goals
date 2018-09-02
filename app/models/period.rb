@@ -2,5 +2,5 @@ class Period < ApplicationRecord
 
   #== ASSOCIATIONS =========================================
   belongs_to :salesman
-  belongs_to :goals
+  belongs_to :goal
 end

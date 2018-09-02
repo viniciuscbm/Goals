@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   create_table "days", force: :cascade do |t|
     t.string "date"
     t.float "value"
-    t.bigint "goals_id"
+    t.bigint "goal_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["goals_id"], name: "index_days_on_goals_id"
+    t.index ["goal_id"], name: "index_days_on_goal_id"
   end
 
   create_table "days_salesmen", id: false, force: :cascade do |t|
@@ -32,12 +32,12 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   end
 
   create_table "goals", force: :cascade do |t|
-    t.string "name"
-    t.date "start_date"
-    t.date "end_date"
-    t.date "month_reference"
-    t.float "value"
-    t.bigint "store_id"
+    t.string "name", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.date "month_reference", null: false
+    t.float "value", null: false
+    t.bigint "store_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_goals_on_store_id"
@@ -51,16 +51,16 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
 
   create_table "periods", force: :cascade do |t|
     t.bigint "salesman_id"
-    t.bigint "goals_id"
+    t.bigint "goal_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["goals_id"], name: "index_periods_on_goals_id"
+    t.index ["goal_id"], name: "index_periods_on_goal_id"
     t.index ["salesman_id"], name: "index_periods_on_salesman_id"
   end
 
   create_table "salesmen", force: :cascade do |t|
-    t.string "name"
-    t.bigint "store_id"
+    t.string "name", null: false
+    t.bigint "store_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_salesmen_on_store_id"
@@ -74,9 +74,9 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
     t.index ["owner_id"], name: "index_stores_on_owner_id"
   end
 
-  add_foreign_key "days", "goals", column: "goals_id"
+  add_foreign_key "days", "goals"
   add_foreign_key "goals", "stores"
-  add_foreign_key "periods", "goals", column: "goals_id"
+  add_foreign_key "periods", "goals"
   add_foreign_key "periods", "salesmen"
   add_foreign_key "salesmen", "stores"
   add_foreign_key "stores", "owners"

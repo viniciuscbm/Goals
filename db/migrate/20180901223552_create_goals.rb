@@ -1,12 +1,12 @@
 class CreateGoals < ActiveRecord::Migration[5.2]
   def change
     create_table :goals do |t|
-      t.string :name
-      t.date :start_date
-      t.date :end_date
-      t.date :month_reference
-      t.float :value
-      t.references :store, foreign_key: true, index: true
+      t.string :name, null: false
+      t.date :start_date, null: false
+      t.date :end_date, null: false
+      t.date :month_reference, null: false
+      t.float :value, null: false
+      t.references :store, foreign_key: true, index: true, null: false
 
       t.timestamps
     end
