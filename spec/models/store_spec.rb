@@ -9,8 +9,8 @@ RSpec.describe Store, type: :model do
 
   context "Associations" do
     it { should belong_to(:owner) }
-    it { should have_many(:salesmans) }
-    it { should have_many(:goals) }
+    it { should have_many(:salesmans).dependent(:destroy) }
+    it { should have_many(:goals).dependent(:destroy) }
   end
 
   context "Migrations" do

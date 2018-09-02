@@ -9,7 +9,7 @@ RSpec.describe Salesman, type: :model do
 
   context "Associations" do
     it { should belong_to(:store) }
-    it { should have_many(:periods) }
+    it { should have_many(:periods).dependent(:destroy) }
     it { should have_many(:goals).through(:periods) }
     it { should have_and_belong_to_many(:days) }
   end

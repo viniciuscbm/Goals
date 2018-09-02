@@ -8,7 +8,7 @@ RSpec.describe Owner, type: :model do
   end
 
   context "Associations" do
-    it { should have_many(:stores) }
+    it { should have_many(:stores).dependent(:destroy) }
   end
 
   context "Migrations" do

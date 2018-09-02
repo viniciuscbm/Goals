@@ -5,7 +5,7 @@ class Salesman < ApplicationRecord
 
   #== ASSOCIATIONS =========================================
   belongs_to :store
-  has_many :periods
+  has_many :periods, dependent: :destroy
   has_many :goals, through: :periods
   has_and_belongs_to_many :days
 end

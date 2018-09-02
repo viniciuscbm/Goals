@@ -14,8 +14,8 @@ RSpec.describe Goal, type: :model do
 
   context "Associations" do
     it { should belong_to(:store) }
-    it { should have_many(:days) }
-    it { should have_many(:periods) }
+    it { should have_many(:days).dependent(:destroy) }
+    it { should have_many(:periods).dependent(:destroy) }
     it { should have_many(:salesmans).through(:periods) }
   end
 

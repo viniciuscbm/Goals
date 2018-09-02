@@ -7,7 +7,7 @@ class Goal < ApplicationRecord
 
   #== ASSOCIATIONS =========================================
   belongs_to :store
-  has_many :days
-  has_many :periods
+  has_many :days, dependent: :destroy
+  has_many :periods, dependent: :destroy
   has_many :salesmans, through: :periods
 end
