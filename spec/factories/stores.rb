@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :store do
-    name "MyString"
-    onwer
+    name { Faker::Name.name }
+    association :onwer
   end
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :period do
-    salesman nil
-    goals nil
+    association :salesman
+    association :goal
   end
 end

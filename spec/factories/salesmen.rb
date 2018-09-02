@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :salesman do
-    name "MyString"
-    store nil
+    name { Faker::Name.name }
+    association :store
   end
 end

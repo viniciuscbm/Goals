@@ -68,10 +68,10 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
 
   create_table "stores", force: :cascade do |t|
     t.string "name"
-    t.bigint "owners_id"
+    t.bigint "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["owners_id"], name: "index_stores_on_owners_id"
+    t.index ["owner_id"], name: "index_stores_on_owner_id"
   end
 
   add_foreign_key "days", "goals", column: "goals_id"
@@ -79,5 +79,5 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   add_foreign_key "periods", "goals", column: "goals_id"
   add_foreign_key "periods", "salesmen"
   add_foreign_key "salesmen", "stores"
-  add_foreign_key "stores", "owners", column: "owners_id"
+  add_foreign_key "stores", "owners"
 end
