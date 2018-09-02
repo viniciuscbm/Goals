@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   end
 
   create_table "periods", force: :cascade do |t|
-    t.bigint "salesman_id"
-    t.bigint "goal_id"
+    t.bigint "salesman_id", null: false
+    t.bigint "goal_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["goal_id"], name: "index_periods_on_goal_id"
