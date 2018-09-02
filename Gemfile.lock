@@ -311,7 +311,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
-  factory_bot_rails
+  factory_bot_rails (~> 4.0)
   faker
   fasterer
   jbuilder (~> 2.5)
