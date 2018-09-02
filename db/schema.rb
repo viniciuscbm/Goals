@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   end
 
   create_table "owners", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 2018_09_01_223707) do
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "name"
-    t.bigint "owner_id"
+    t.string "name", null: false
+    t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_stores_on_owner_id"

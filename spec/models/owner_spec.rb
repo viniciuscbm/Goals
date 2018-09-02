@@ -12,6 +12,6 @@ RSpec.describe Owner, type: :model do
   end
 
   context "Migrations" do
-    it { should have_db_column(:name) }
+    it { should have_db_column(:name).of_type(:string).with_options(null: false) }
   end
 end
