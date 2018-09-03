@@ -1,10 +1,11 @@
 class SalesmenController < ApplicationController
   before_action :set_salesman, only: [:show, :edit, :update, :destroy]
+  before_action :set_stores, only: [:index, :new, :create, :edit, :update]
 
   # GET /salesmen
   # GET /salesmen.json
   def index
-    @salesmen = Salesman.all
+    @salesmen = current_user.admin? ? Salesman.all : Salesman.by_store_ids(@stores)
   end
 
   # GET /salesmen/1
@@ -14,7 +15,11 @@ class SalesmenController < ApplicationController
 
   # GET /salesmen/new
   def new
-    @salesman = Salesman.new
+    if @stores.present?
+      @salesman = Salesman.new
+    else
+      redirect_to new_store_path, notice: "Cadastre uma loja antes de adcionar vendedores"
+    end
   end
 
   # GET /salesmen/1/edit
@@ -65,6 +70,10 @@ class SalesmenController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_salesman
       @salesman = Salesman.find(params[:id])
+    end
+
+    def set_stores
+      @stores = Store.where(owner_id: current_user.owner)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

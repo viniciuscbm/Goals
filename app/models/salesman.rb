@@ -1,5 +1,8 @@
 class Salesman < ApplicationRecord
 
+  #== SCOPES ========================================
+  scope :by_store_ids, -> (ids) { where(store_id: ids) }
+
   #== VALIDATIONS ========================================
   validates :name, presence: true, length: { in: 3..255 }
 
