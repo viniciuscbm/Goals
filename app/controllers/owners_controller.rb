@@ -15,7 +15,7 @@ class OwnersController < ApplicationController
   # GET /owners/new
   def new
     if current_user.owner.present?
-      redirect_to root_path, notice: "Você já é cadastrado com proprietário."
+      redirect_to root_path, notice: "Você já é cadastrado como proprietário."
     else
       @owner = Owner.new
     end

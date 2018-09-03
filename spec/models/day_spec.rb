@@ -3,8 +3,6 @@ require "rails_helper"
 RSpec.describe Day, type: :model do
 
   context "Validations" do
-    it { should validate_numericality_of(:value) }
-
     context "uniqueness?" do
       subject { FactoryBot.create(:day) }
       it { should validate_uniqueness_of(:date) }

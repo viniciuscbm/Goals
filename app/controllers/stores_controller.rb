@@ -15,7 +15,7 @@ class StoresController < ApplicationController
 
   # GET /stores/new
   def new
-    unless @owner.nil?
+    if @owner.present?
       @store = Store.new
     else
       redirect_to new_owner_path, notice: "Registre-se como proprietário antes de criar uma loja."

@@ -2,7 +2,6 @@ class Day < ApplicationRecord
 
   #== VALIDATIONS ========================================
   validates :date, uniqueness: true
-  validates :value, numericality: true
 
   #== ASSOCIATIONS =========================================
   belongs_to :goal

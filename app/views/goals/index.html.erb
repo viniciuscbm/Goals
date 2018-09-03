@@ -23,7 +23,7 @@
         <td><%= goal.end_date %></td>
         <td><%= goal.month_reference %></td>
         <td><%= goal.value %></td>
-        <td><%= goal.store %></td>
+        <td><%= goal.store.name %></td>
         <td><%= link_to 'Show', goal %></td>
         <td><%= link_to 'Edit', edit_goal_path(goal) %></td>
         <td><%= link_to 'Destroy', goal, method: :delete, data: { confirm: 'Are you sure?' } %></td>

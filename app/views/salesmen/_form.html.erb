@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :store_id %>
-    <%= form.collection_select(:store_id, @stores, :id, :name, {}, {:class => "form-control"}) %>
+    <%= form.collection_select(:store_id, @stores, :id, :name, {}, {}) %>
   </div>
 
   <div class="actions">
