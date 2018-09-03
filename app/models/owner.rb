@@ -1,5 +1,6 @@
 class Owner < ApplicationRecord
 
+  #== SCOPES ========================================
   scope :by_user_id, -> (id) { where(user_id: id) }
 
   #== VALIDATIONS ========================================

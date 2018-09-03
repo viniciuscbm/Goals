@@ -1,5 +1,8 @@
 class Store < ApplicationRecord
 
+  #== SCOPES ========================================
+  scope :by_owner_id, -> (id) { where(owner_id: id) }
+
   #== VALIDATIONS ========================================
   validates :name, presence: true, length: { in: 3..255 }
 

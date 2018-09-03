@@ -1,10 +1,11 @@
 class StoresController < ApplicationController
   before_action :set_store, only: [:show, :edit, :update, :destroy]
+  before_action :set_owner, only: [:index, :new, :create]
 
   # GET /stores
   # GET /stores.json
   def index
-    @stores = Store.all
+    @stores = current_user.admin? ? Store.all : Store.by_owner_id(@owner)
   end
 
   # GET /stores/1
@@ -14,7 +15,11 @@ class StoresController < ApplicationController
 
   # GET /stores/new
   def new
-    @store = Store.new
+    unless @owner.nil?
+      @store = Store.new
+    else
+      redirect_to new_owner_path, notice: "Registre-se como proprietário antes de criar uma loja."
+    end
   end
 
   # GET /stores/1/edit
@@ -24,7 +29,7 @@ class StoresController < ApplicationController
   # POST /stores
   # POST /stores.json
   def create
-    @store = Store.new(store_params.merge(owner_id: current_user.owner.id))
+    @store = Store.new(store_params.merge(owner_id: @owner.id))
 
     respond_to do |format|
       if @store.save
@@ -65,6 +70,10 @@ class StoresController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_store
       @store = Store.find(params[:id])
+    end
+
+    def set_owner
+      @owner = Owner.find_by(user_id: current_user)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

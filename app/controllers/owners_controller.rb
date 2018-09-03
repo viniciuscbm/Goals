@@ -14,7 +14,11 @@ class OwnersController < ApplicationController
 
   # GET /owners/new
   def new
-    @owner = Owner.new
+    if current_user.owner.present?
+      redirect_to root_path, notice: "Você já é cadastrado com proprietário."
+    else
+      @owner = Owner.new
+    end
   end
 
   # GET /owners/1/edit
@@ -27,7 +31,7 @@ class OwnersController < ApplicationController
     @owner = Owner.new(owner_params.merge(user_id: current_user.id))
 
     respond_to do |format|
-      if !current_user.owner.present? && @owner.save
+      if @owner.save
         format.html { redirect_to @owner, notice: 'Owner was successfully created.' }
         format.json { render :show, status: :created, location: @owner }
       else
