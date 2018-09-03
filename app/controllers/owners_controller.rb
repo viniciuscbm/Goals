@@ -4,7 +4,7 @@ class OwnersController < ApplicationController
   # GET /owners
   # GET /owners.json
   def index
-    @owners = Owner.all
+    @owners = current_user.admin? ? Owner.all : Owner.by_user_id(current_user.id)
   end
 
   # GET /owners/1
@@ -27,7 +27,7 @@ class OwnersController < ApplicationController
     @owner = Owner.new(owner_params.merge(user_id: current_user.id))
 
     respond_to do |format|
-      if @owner.save
+      if !current_user.owner.present? && @owner.save
         format.html { redirect_to @owner, notice: 'Owner was successfully created.' }
         format.json { render :show, status: :created, location: @owner }
       else
