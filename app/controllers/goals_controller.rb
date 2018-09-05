@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :edit, :update, :destroy, :days]
+  before_action :set_goal, only: [:show, :edit, :update, :destroy]
   before_action :set_stores, only: [:index, :new, :create, :edit, :update]
 
   # GET /goals
@@ -34,7 +34,7 @@ class GoalsController < ApplicationController
     ActiveRecord::Base.transaction do
       begin
         respond_to do |format|
-          if @goal.add
+          if @goal.save
             format.html { redirect_to @goal, notice: 'Goal was successfully created.' }
             format.json { render :show, status: :created, location: @goal }
           else
@@ -43,7 +43,7 @@ class GoalsController < ApplicationController
           end
         end
       rescue Exception => e
-        redirect_to new_goal_path, notice: "Já existe uma meta para um ou mais dias que foram escolhidos."
+        redirect_to new_goal_path, notice: e.message
         raise ActiveRecord::Rollback
       end
     end
@@ -52,13 +52,20 @@ class GoalsController < ApplicationController
   # PATCH/PUT /goals/1
   # PATCH/PUT /goals/1.json
   def update
-    respond_to do |format|
-      if @goal.update(goal_params)
-        format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
-        format.json { render :show, status: :ok, location: @goal }
-      else
-        format.html { render :edit }
-        format.json { render json: @goal.errors, status: :unprocessable_entity }
+    ActiveRecord::Base.transaction do
+      begin
+        respond_to do |format|
+          if @goal.update(goal_params)
+            format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
+            format.json { render :show, status: :ok, location: @goal }
+          else
+            format.html { render :edit }
+            format.json { render json: @goal.errors, status: :unprocessable_entity }
+          end
+        end
+      rescue Exception => e
+        redirect_to edit_goal_path, notice: e.message
+        raise ActiveRecord::Rollback
       end
     end
   end
@@ -73,19 +80,15 @@ class GoalsController < ApplicationController
     end
   end
 
-  # POST /goals/id/days
-  def days
-    @days = Days.where(goal_id: @goal)
+  # GET /goals/id/days
+  def get_days
+    @goal = Goal.find(params[:goal_id])
+    @days = Day.where(goal_id: params[:goal_id])
+  end
 
-    respond_to do |format|
-      if @days.add
-        format.html { redirect_to @goal, notice: 'Valores dos dias atualizados com sucesso.' }
-        format.json { render :show, status: :created, location: @goal }
-      else
-        format.html { render :days }
-        format.json { render json: @days.errors, status: :unprocessable_entity }
-      end
-    end
+  # POST /goals/days
+  def set_days
+    ap "chegamos aqui"
   end
 
   private

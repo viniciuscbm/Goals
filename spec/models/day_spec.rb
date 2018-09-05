@@ -2,13 +2,6 @@ require "rails_helper"
 
 RSpec.describe Day, type: :model do
 
-  context "Validations" do
-    context "uniqueness?" do
-      subject { FactoryBot.create(:day) }
-      it { should validate_uniqueness_of(:date) }
-    end
-  end
-
   context "Associations" do
     it { should belong_to(:goal) }
     it { should have_and_belong_to_many(:salesmans) }
