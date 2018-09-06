@@ -10,5 +10,6 @@ class Salesman < ApplicationRecord
   belongs_to :store
   has_many :periods, dependent: :destroy
   has_many :goals, through: :periods
-  has_and_belongs_to_many :days
+  has_many :day_salesman, dependent: :destroy
+  has_many :days, through: :day_salesman
 end

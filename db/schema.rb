@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_02_210314) do
+ActiveRecord::Schema.define(version: 2018_09_06_034356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "day_salesmen", force: :cascade do |t|
+    t.bigint "salesman_id", null: false
+    t.bigint "day_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day_id"], name: "index_day_salesmen_on_day_id"
+    t.index ["salesman_id"], name: "index_day_salesmen_on_salesman_id"
+  end
 
   create_table "days", force: :cascade do |t|
     t.date "date", null: false
@@ -22,13 +31,6 @@ ActiveRecord::Schema.define(version: 2018_09_02_210314) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["goal_id"], name: "index_days_on_goal_id"
-  end
-
-  create_table "days_salesmen", id: false, force: :cascade do |t|
-    t.bigint "day_id", null: false
-    t.bigint "salesman_id", null: false
-    t.index ["day_id", "salesman_id"], name: "index_days_salesmen_on_day_id_and_salesman_id"
-    t.index ["salesman_id", "day_id"], name: "index_days_salesmen_on_salesman_id_and_day_id"
   end
 
   create_table "goals", force: :cascade do |t|
@@ -89,6 +91,8 @@ ActiveRecord::Schema.define(version: 2018_09_02_210314) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "day_salesmen", "days"
+  add_foreign_key "day_salesmen", "salesmen"
   add_foreign_key "days", "goals"
   add_foreign_key "goals", "stores"
   add_foreign_key "owners", "users"

@@ -80,17 +80,6 @@ class GoalsController < ApplicationController
     end
   end
 
-  # GET /goals/id/days
-  def get_days
-    @goal = Goal.find(params[:goal_id])
-    @days = Day.where(goal_id: params[:goal_id])
-  end
-
-  # POST /goals/days
-  def set_days
-    ap "chegamos aqui"
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_goal

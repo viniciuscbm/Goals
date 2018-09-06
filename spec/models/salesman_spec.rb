@@ -11,7 +11,8 @@ RSpec.describe Salesman, type: :model do
     it { should belong_to(:store) }
     it { should have_many(:periods).dependent(:destroy) }
     it { should have_many(:goals).through(:periods) }
-    it { should have_and_belong_to_many(:days) }
+    it { should have_many(:day_salesman).dependent(:destroy) }
+    it { should have_many(:days).through(:day_salesman) }
   end
 
   context "Migrations" do
