@@ -4,7 +4,7 @@ RSpec.describe Day, type: :model do
 
   context "Associations" do
     it { should belong_to(:goal) }
-    it { should have_many(:day_salesman).dependent(:destroy) }
+    it { should have_many(:day_salesman).dependent(:destroy).inverse_of(:day) }
     it { should have_many(:salesmans).through(:day_salesman) }
   end
 

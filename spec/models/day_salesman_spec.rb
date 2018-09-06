@@ -4,7 +4,7 @@ RSpec.describe DaySalesman, type: :model do
 
   context "Associations" do
     it { should belong_to(:salesman) }
-    it { should belong_to(:day) }
+    it { should belong_to(:day).inverse_of(:day_salesman) }
   end
 
   context "Migrations" do

@@ -1,0 +1,77 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @goal.name %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @goal.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @goal.end_date %>
+</p>
+
+<p>
+  <strong>Month reference:</strong>
+  <%= @goal.month_reference %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @goal.value %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @goal.store.name %>
+</p>
+
+<br>
+
+<%= form_tag goal_days_path do %>
+
+  <% @days.each do |day| %>
+    <%= fields_for :day, day do |p| %>
+
+      <%= p.hidden_field :id %>
+
+      <div class="field">
+        <%= p.label :date %>
+        <%= p.text_field :date ,disabled: true  %>
+      </div>
+
+      <div class="field">
+        <%= p.label :value %>
+        <%= p.number_field  :value %>
+      </div>
+
+      <div class="field">
+        <%= p.label "Vendedores que participaram da meta do dia:" %>
+      </div>
+
+      <% @salesmans.each do |salesman| %>
+        <%= p.fields_for :salesman do |s| %>
+          <%= s.check_box :days, {}, day.id  %>
+          <%= salesman.name %>
+        <% end %>
+      <% end %>
+
+
+      <div class="field">
+        <br>
+      </div>
+
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', goals_path %> |
+<%= link_to 'Início', root_path %>
